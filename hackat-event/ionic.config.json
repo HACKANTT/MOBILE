@@ -1,0 +1,7 @@
+{
+  "name": "hackat-event",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
