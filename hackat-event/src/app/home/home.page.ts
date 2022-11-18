@@ -26,9 +26,9 @@ export class HomePage {
         film:hackathon
       }
     };
-    this.router.navigate(['/detail'], navExtras);*/
+    this.router.navigate(['/detail'], navExtras);
 
 
-  }
+  }*/
 
 }

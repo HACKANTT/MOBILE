@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Blank
+      Hackathons
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -9,12 +9,12 @@
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
+      <ion-title size="large">Hackathons</ion-title>
     </ion-toolbar>
   </ion-header>
 
   <div id="container">
-    <ion-item *ngFor="let hack of lsthackathons" (click)="affDetail(hack)">
+    <ion-item *ngFor="let hack of lsthackathons">
 
       <ion-thumbnail slot="start">
           <img src="{{hack.posterUrl}}" />
