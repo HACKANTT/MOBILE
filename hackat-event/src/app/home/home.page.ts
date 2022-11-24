@@ -12,22 +12,22 @@ export class HomePage {
   lsthackathons:any;
   constructor(private http : HttpClient, private router: Router) {
     this.http.get('http://localhost:8001/api/hackathons').subscribe(results => {
-      results=this.lsthackathons;
+      this.lsthackathons=results;
     });
   }
 
-  /*affDetail(hackathon){
-    console.log(hackathon);
+  affDetailHack(hack: any){
+    console.log(hack);
     //ouvrir page detail
     //envoyer le param à la page detail
     let navExtras: NavigationExtras = {
       state: {
-        film:hackathon
+        hack:hack
       }
     };
-    this.router.navigate(['/detail'], navExtras);
+    this.router.navigate(['/detail-hack'], navExtras);
 
 
-  }*/
+  }
 
 }

@@ -13,23 +13,21 @@
     </ion-toolbar>
   </ion-header>
 
-  <div id="container">
-    <ion-item *ngFor="let hack of lsthackathons">
+    <ion-item *ngFor="let hack of lsthackathons" (click)= "affDetailHack(hack)">
 
       <ion-thumbnail slot="start">
-          <img src="{{hack.posterUrl}}" />
+          <img src="{{hack.image}}" />
       </ion-thumbnail>
       <ion-label>
           <h2>
-              {{hack.title.toUpperCase()}}
+              {{hack.theme.toUpperCase()}}
           </h2>
           <p>
-              {{hack.director}}
+              {{hack.description}}
           </p>
 
 
       </ion-label>
-      <ion-chip>{{hack.year}}</ion-chip>
+      <ion-chip [outline]="true">Places: {{hack.nbPlaces}}</ion-chip>
   </ion-item>
-  </div>
 </ion-content>
