@@ -4,6 +4,8 @@ import { Router, ActivatedRoute} from '@angular/router';
 
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
+
+
 @Component({
   selector: 'app-detail-hack',
   templateUrl: './detail-hack.page.html',
