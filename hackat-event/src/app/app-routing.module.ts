@@ -15,6 +15,10 @@ const routes: Routes = [
     path: 'detail-hack',
     loadChildren: () => import('./detail-hack/detail-hack.module').then( m => m.DetailHackPageModule)
   },
+  {
+    path: 'detail-atelier',
+    loadChildren: () => import('./detail-atelier/detail-atelier.module').then( m => m.DetailAtelierPageModule)
+  },
 ];
 
 @NgModule({
