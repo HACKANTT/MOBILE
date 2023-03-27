@@ -69,22 +69,19 @@
         </ion-grid>
     </ion-item>
 
-    <ion-item *ngFor="let hack of lsthackathons" (click)="affDetailHack(hack)">
-
-        <ion-thumbnail slot="start">
-            <img src="{{hack.image}}" />
-        </ion-thumbnail>
-        <ion-label>
-            <h2>
-                {{hack.theme.toUpperCase()}}
-            </h2>
-            <p>
-                {{hack.description}}
-            </p>
+  <ion-item *ngFor="let evenement of lstevenements" (click)="affDetailEvenement(evenement)">
+    <ion-label>
+      <h2>
+        {{evenement.libelle}}
+      </h2>
+      <p>Date: {{evenement.date_event}}</p><br/>
+      <p>Heure: {{evenement.heure}}</p><br/>
+      <p>Durée: {{evenement.duree}}</p><br/>
+      <p>Salle: {{evenement.salle}}</p><br/>
 
 
-        </ion-label>
-        <ion-chip [outline]="true">Places: {{hack.nbPlaces}}</ion-chip>
-    </ion-item>
+    </ion-label>
+    <ion-chip [outline]="true">Type: {{evenement.type}}</ion-chip>
+  </ion-item>
 
 </ion-content>

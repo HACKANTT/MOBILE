@@ -15,7 +15,7 @@ export class DetailHackPage implements OnInit {
 
   mapURL: SafeResourceUrl;
   hack: any;
-  lsthackathons:any;
+  lstevenements:any;
   constructor(public sanitizer:DomSanitizer, private router: Router, private http: HttpClient, private activeRoute: ActivatedRoute) {
     
     let url =
@@ -26,8 +26,8 @@ export class DetailHackPage implements OnInit {
     this.hack= item.hack;
     console.log(this.hack);
 
-    this.http.get('http://localhost:8001/api/hackathons').subscribe(results => {
-      this.lsthackathons=results;
+    this.http.get('http://localhost:8001/api/evenements').subscribe(results => {
+      this.lstevenements=results;
     });
   }
   )}
@@ -39,16 +39,16 @@ export class DetailHackPage implements OnInit {
   ngOnInit() {
   }
 
-  affDetailHack(hack: any){
-    console.log(hack);
+  affDetailEvenement(evenement: any){
+    console.log(evenement);
     //ouvrir page detail
     //envoyer le param à la page detail
     let navExtras: NavigationExtras = {
       state: {
-        hack:hack
+        evenement:evenement
       }
     };
-    this.router.navigate(['/detail-hack'], navExtras);
+    // this.router.navigate(['/detail-evenement'], navExtras);
 
 
   }
