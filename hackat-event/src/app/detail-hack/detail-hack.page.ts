@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute} from '@angular/router';
+import { Router, ActivatedRoute, NavigationExtras} from '@angular/router';
 
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
@@ -15,6 +15,7 @@ export class DetailHackPage implements OnInit {
 
   mapURL: SafeResourceUrl;
   hack: any;
+  lsthackathons:any;
   constructor(public sanitizer:DomSanitizer, private router: Router, private http: HttpClient, private activeRoute: ActivatedRoute) {
     
     let url =
@@ -24,16 +25,32 @@ export class DetailHackPage implements OnInit {
     let item:any = this.router.getCurrentNavigation()?.extras.state;
     this.hack= item.hack;
     console.log(this.hack);
+
+    this.http.get('http://localhost:8001/api/hackathons').subscribe(results => {
+      this.lsthackathons=results;
+    });
   }
   )}
 
   sanitizeUrl(url:any){
     return  this.sanitizer.bypassSecurityTrustUrl(url);
   }
-
-
-
+  
   ngOnInit() {
+  }
+
+  affDetailHack(hack: any){
+    console.log(hack);
+    //ouvrir page detail
+    //envoyer le param à la page detail
+    let navExtras: NavigationExtras = {
+      state: {
+        hack:hack
+      }
+    };
+    this.router.navigate(['/detail-hack'], navExtras);
+
+
   }
 
 }
