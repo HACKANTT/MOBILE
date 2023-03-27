@@ -1,71 +1,87 @@
 <ion-header [translucent]="true">
-  <ion-toolbar>
-      <ion-buttons slot="start">
-          <ion-back-button defaultHref="/"></ion-back-button>
-      </ion-buttons>
-      <ion-title>Détails Hackathon</ion-title>
-  </ion-toolbar>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button defaultHref="/"></ion-back-button>
+        </ion-buttons>
+        <ion-title>Détails Hackathon</ion-title>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content fullscreen="true">
 
-          <ion-img src={{hack.image}}></ion-img>
+    <ion-img src={{hack.image}}></ion-img>
 
-  <ion-item>
-      <ion-label position="stacked">Thème :</ion-label>
-      <p>
-          {{hack.theme}}
-      </p>
-  </ion-item>
-  <ion-item>
-      <ion-label position="stacked">Lieu :</ion-label>
-      <p>
-          {{hack.lieu}}
-      </p>
-      <iframe allowfullscreen frameborder="0" src="mapURL" loading="lazy" width="100%" height="300"></iframe>
-  </ion-item>
-  <ion-item>
-    <ion-label position="stacked">Adresse :</ion-label>
-    <p>
-        {{hack.rue}}, {{hack.ville}}, {{hack.cp}}
-    </p>
-</ion-item>
-  <ion-item>
-      <ion-label position="stacked">Date :</ion-label>
-      <p>
-          {{hack.dateDebut.date}} - {{hack.dateFin.date}}
-      </p>
-  </ion-item>
-  <ion-item>
-    <ion-label position="stacked">Heure :</ion-label>
-    <p>
-        {{hack.heureDebut.date}} - {{hack.heureFin.date}}
-    </p>
-</ion-item>
-  <ion-item>
-      <ion-label position="stacked">Places disponibles :</ion-label>
-      <p>
-          {{hack.nbPlaces}}
-      </p>
-  </ion-item>
-  <ion-item>
-      <ion-label position="stacked">Description :</ion-label>
-      <p>
-          {{hack.description}}
-      </p>
-  </ion-item>
-  <ion-item>
+    <ion-item>
+        <ion-label position="stacked">Thème :</ion-label>
+        <p>
+            {{hack.theme}}
+        </p>
+    </ion-item>
+    <ion-item>
+        <ion-label position="stacked">Lieu :</ion-label>
+        <p>
+            {{hack.lieu}}
+        </p>
+        <iframe allowfullscreen frameborder="0" src="{{mapURL}}" loading="lazy" width="100%" height="300"></iframe>
+    </ion-item>
+    <ion-item>
+        <ion-label position="stacked">Adresse :</ion-label>
+        <p>
+            {{hack.rue}}, {{hack.ville}}, {{hack.cp}}
+        </p>
+    </ion-item>
+    <ion-item>
+        <ion-label position="stacked">Date :</ion-label>
+        <p>
+            {{hack.dateDebut.date}} - {{hack.dateFin.date}}
+        </p>
+    </ion-item>
+    <ion-item>
+        <ion-label position="stacked">Heure :</ion-label>
+        <p>
+            {{hack.heureDebut.date}} - {{hack.heureFin.date}}
+        </p>
+    </ion-item>
+    <ion-item>
+        <ion-label position="stacked">Places disponibles :</ion-label>
+        <p>
+            {{hack.nbPlaces}}
+        </p>
+    </ion-item>
+    <ion-item>
+        <ion-label position="stacked">Description :</ion-label>
+        <p>
+            {{hack.description}}
+        </p>
+    </ion-item>
+    <ion-item>
 
-      <ion-grid>
-          <ion-row>
-              <ion-col *ngFor="let genre of hack.events">
-                  <ion-chip>
-                      <ion-label>
-                          {{genre}}
-                      </ion-label>
-                  </ion-chip>
-              </ion-col>
-          </ion-row>
-      </ion-grid>
+        <ion-grid>
+            <ion-row>
+                <ion-col *ngFor="let genre of hack.events">
+                    <ion-chip>
+                        <ion-label *ngFor="let ungenre of genre">
+                            {{ungenre}}
+                        </ion-label>
+                    </ion-chip>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </ion-item>
+
+  <ion-item *ngFor="let evenement of lstevenements" (click)="affDetailEvenement(evenement)">
+    <ion-label>
+      <h2>
+        {{evenement.libelle}}
+      </h2>
+      <p>Date: {{evenement.date_event}}</p><br/>
+      <p>Heure: {{evenement.heure}}</p><br/>
+      <p>Durée: {{evenement.duree}}</p><br/>
+      <p>Salle: {{evenement.salle}}</p><br/>
+
+
+    </ion-label>
+    <ion-chip [outline]="true">Type: {{evenement.type}}</ion-chip>
   </ion-item>
+
 </ion-content>
