@@ -17,7 +17,7 @@ export class DetailHackPage implements OnInit {
   hack: any;
   lstevenements:any;
   constructor(public sanitizer:DomSanitizer, private router: Router, private http: HttpClient, private activeRoute: ActivatedRoute) {
-    
+
     let url =
       'https://www.google.com/maps/embed/v1/place?key=AIzaSyBBsM0iiWw3EHaTaHnRYtYPWq5GeBEM2pE&q=Eiffel+Tower,Paris+France&zoom=8';
     this.mapURL = this.sanitizer.bypassSecurityTrustResourceUrl(url);
@@ -26,16 +26,16 @@ export class DetailHackPage implements OnInit {
     this.hack= item.hack;
     console.log(this.hack);
 
-    this.http.get('http://localhost:8001/api/evenements').subscribe(results => {
-      this.lstevenements=results;
-    });
+    //on récupère les evenemnts liés au hackathon sur lequel on clique
+    this.http.get('http://'+ window.location.hostname+':8001/api/evenements/hackathon/'+this.hack.id).subscribe(
+      data => {this.lstevenements = data;console.log(this.lstevenements);})
   }
   )}
 
   sanitizeUrl(url:any){
     return  this.sanitizer.bypassSecurityTrustUrl(url);
   }
-  
+
   ngOnInit() {
   }
 
@@ -48,7 +48,14 @@ export class DetailHackPage implements OnInit {
         evenement:evenement
       }
     };
-    // this.router.navigate(['/detail-evenement'], navExtras);
+    //si c'est un atelier on va vers detail-atelier
+    if(evenement.type == "atelier"){
+      this.router.navigate(['detail-atelier'], navExtras);
+    }
+    //si c'est une conference on va vers detail-conference
+    if(evenement.type == "conference"){
+      this.router.navigate(['detail-conference'], navExtras);
+    }
 
 
   }

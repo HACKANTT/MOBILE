@@ -11,7 +11,7 @@ export class HomePage {
 
   lsthackathons:any;
   constructor(private http : HttpClient, private router: Router) {
-    this.http.get('http://localhost:8001/api/hackathons').subscribe(results => {
+    this.http.get('http://'+ window.location.hostname+':8001/api/hackathons').subscribe(results => {
       this.lsthackathons=results;
     });
   }

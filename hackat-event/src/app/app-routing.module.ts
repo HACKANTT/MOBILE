@@ -18,7 +18,11 @@ const routes: Routes = [
   {
     path: 'detail-atelier',
     loadChildren: () => import('./detail-atelier/detail-atelier.module').then( m => m.DetailAtelierPageModule)
+  },  {
+    path: 'detail-conference',
+    loadChildren: () => import('./detail-conference/detail-conference.module').then( m => m.DetailConferencePageModule)
   },
+
 ];
 
 @NgModule({
