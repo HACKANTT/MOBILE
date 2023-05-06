@@ -12,9 +12,7 @@
       <ion-title size="large">Hackathons</ion-title>
     </ion-toolbar>
   </ion-header>
-
     <ion-item *ngFor="let hack of lsthackathons" (click)= "affDetailHack(hack)">
-
       <ion-thumbnail slot="start">
           <img src="{{hack.image}}" />
       </ion-thumbnail>
