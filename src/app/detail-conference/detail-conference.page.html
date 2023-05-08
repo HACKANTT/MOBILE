@@ -1,12 +1,54 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-      <ion-buttons slot="start">
-        <ion-back-button text="Retour" icon="caret-back" defaultHref="/"></ion-back-button>
-      </ion-buttons>
+    <ion-buttons slot="start">
+      <ion-back-button text="Retour" icon="caret-back" defaultHref="/"></ion-back-button>
+    </ion-buttons>
 
-      <ion-title>Détails Conférence</ion-title>
+    <ion-title>Détails Conférence</ion-title>
   </ion-toolbar>
 </ion-header>
-<ion-content>
-
+<ion-content [fullscreen]="true" scrollEvents="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Détails Conférence</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>
+        <h5>Cette conférence concernera :</h5>
+        {{conference.theme}}
+      </ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-item color="light" detail="true">
+        <ion-avatar slot="start">
+          <img alt="Silhouette of a person's head" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
+        </ion-avatar>
+        <ion-label> {{conference.intervenant}}
+          <p>Intervenant(e)</p>
+        </ion-label>
+      </ion-item>
+      <br />
+      <ion-button id="open-modal" expand="block">Cette conférence m'intéresse !</ion-button>
+      <br />
+      <ion-modal trigger="open-modal" [initialBreakpoint]="1" [breakpoints]="[0, 1]"
+      [swipeToClose]="true">
+        <ng-template>
+          <div class="block">
+            <p class="j-center">C'est noté ! Pas besoin de vous inscrire, n'oubliez pas de venir le :</p>
+            <h1>{{conference.dateEvent}}</h1>
+            <h1>{{conference.heure}}</h1>
+            <ion-button routerLink="/home" expand="block" fill="clear" color="primary">
+              C'est d'accord ✅
+            </ion-button>
+          </div>
+        </ng-template>
+      </ion-modal>
+      <ion-button (click)="addFav(conference)" [color]="isFav ? 'danger' : 'primary'" expand="full" fill="clear">
+        {{isFav ? 'Retirer des favorisㅤ' : 'Ajouter aux favorisㅤ'}}
+        <ion-icon name="star"></ion-icon>
+      </ion-button>
+    </ion-card-content>
+  </ion-card>
 </ion-content>

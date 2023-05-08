@@ -22,6 +22,10 @@ const routes: Routes = [
     path: 'detail-conference',
     loadChildren: () => import('./detail-conference/detail-conference.module').then( m => m.DetailConferencePageModule)
   },
+  {
+    path: 'favoris',
+    loadChildren: () => import('./favoris/favoris.module').then( m => m.FavorisPageModule)
+  },
 
 ];
 

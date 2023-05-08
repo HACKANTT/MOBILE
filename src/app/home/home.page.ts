@@ -16,6 +16,19 @@ export class HomePage {
     });
   }
 
+  handleRefresh(event:any) {
+    console.log('Begin async operation');
+    this.http.get('http://'+ window.location.hostname+':8001/api/hackathons').subscribe(results => {
+      this.lsthackathons=results;
+      event.target.complete();
+    });
+  }
+
+  affFav()
+  {
+    this.router.navigate(['/favoris']);
+  }
+
   affDetailHack(hack: any){
     console.log(hack);
     //ouvrir page detail
@@ -26,8 +39,6 @@ export class HomePage {
       }
     };
     this.router.navigate(['/detail-hack'], navExtras);
-
-
   }
 
 }
