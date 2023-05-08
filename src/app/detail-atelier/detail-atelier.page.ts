@@ -1,8 +1,14 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit, ViewChild} from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { IonModal } from '@ionic/angular';
+import { IonModal, AlertController } from '@ionic/angular';
 import { OverlayEventDetail } from '@ionic/core/components';
+import {
+  FormGroup,
+  FormControl,
+  Validators,
+  FormBuilder,
+} from '@angular/forms';
 
 @Component({
   selector: 'app-detail-atelier',
@@ -11,18 +17,26 @@ import { OverlayEventDetail } from '@ionic/core/components';
 })
 export class DetailAtelierPage implements OnInit {
   @ViewChild(IonModal) modal!: IonModal;
-  message = 'This modal example uses triggers to automatically open a modal when the button is clicked.';
+  message =
+    'This modal example uses triggers to automatically open a modal when the button is clicked.';
   nom!: string;
   prenom!: string;
   email!: string;
   evenement: any;
   atelier: any;
   favoris: any;
-  hack:any;
+  hack: any;
+  ionicForm!: FormGroup;
+  submitted = false;
+  alertmsg:any;
+  showAlert = false;
+  alertButtons = [ { text: 'OK', handler: () => { this.showAlert = false; } } ];
   constructor(
     private router: Router,
     private http: HttpClient,
-    private activeRoute: ActivatedRoute
+    private activeRoute: ActivatedRoute,
+    public formBuilder: FormBuilder,
+    private alertCtrl: AlertController
   ) {
     this.activeRoute.queryParams.subscribe((params) => {
       let item: any = this.router.getCurrentNavigation()?.extras.state;
@@ -48,7 +62,6 @@ export class DetailAtelierPage implements OnInit {
   }
 
   isFav() {
-
     //on vérifie si le film est dans les favoris
     /*this.storage.get('favoris').then((val) => {
         if (val) {
@@ -65,8 +78,7 @@ export class DetailAtelierPage implements OnInit {
     this.favoris = false;
   }
 
-  inscription(atelier:any)
-  {
+  inscription(atelier: any) {
     //on vérifie si l'utilisateur est connecté
     /*this.storage.get('user').then((val) => {
         if (val) {
@@ -105,5 +117,66 @@ export class DetailAtelierPage implements OnInit {
     this.favoris = true;
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.ionicForm = this.formBuilder.group({
+      nom: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(3),
+          //on autorise les espaces et les tirets
+          Validators.pattern('^[a-zA-Z- ]+$'),
+        ],
+      ],
+      prenom: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(3),
+          Validators.pattern('^[a-zA-Z]+$'),
+        ],
+      ],
+      email: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(3),
+          Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$'),
+        ],
+      ],
+    });
+  }
+
+  get errorControl() {
+    return this.ionicForm.controls;
+  }
+
+  onSubmit() {
+    this.submitted = true;
+    if (!this.ionicForm.valid) {
+      console.log('Veuillez bien remplir tous les champs');
+      this.alertmsg="Veuillez bien remplir tous les champs :)";
+      this.showAlert = true;
+      return false;
+    } else {
+      console.log(this.ionicForm.value);
+      //on va faire une requete post json vers /api/inscription/atelier
+      this.http
+        .post('http://'+ window.location.hostname+':8001/api/inscription/atelier', {
+          "nom": this.ionicForm.value.nom,
+          "prenom": this.ionicForm.value.prenom,
+          "email": this.ionicForm.value.email,
+          "atelier": this.atelier.id,
+        })
+        //en fonction du code de la réponse on affiche l'error en json retournée par l'api, ou la réussite
+        .subscribe(
+          (response) => {
+            console.log(response);
+          }),
+          console.log(this.http)
+
+      this.modal.dismiss(this.nom, 'confirm');
+      return;
+    }
+  }
 }

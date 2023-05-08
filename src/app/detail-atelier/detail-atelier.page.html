@@ -23,25 +23,27 @@
       <h1>{{atelier.date}}</h1>
       <ion-item color="light" detail="true" class="rounded" lines="none">
         <ion-icon name="location" slot="start"></ion-icon>
-        <ion-label> {{atelier.salle}}
+        <ion-label>
+          {{atelier.salle}}
           <p>Lieu</p>
         </ion-label>
       </ion-item>
       <ion-item color="light" detail="true" class="rounded" lines="none">
         <ion-icon name="time" slot="start"></ion-icon>
-        <ion-label> {{atelier.heure}}
+        <ion-label>
+          {{atelier.heure}}
           <p>Heure</p>
         </ion-label>
       </ion-item>
       <ion-item color="light" detail="true" class="rounded" lines="none">
         <ion-icon name="person" slot="start"></ion-icon>
-        <ion-label> {{atelier.nbParticipants}} / {{atelier.nbPlaces}}
+        <ion-label>
+          {{atelier.nbParticipants}} / {{atelier.nbPlaces}}
           <p>Places occupées</p>
         </ion-label>
       </ion-item>
       <ion-button id="open-modal" expand="block" fill="solid" color="primary">
-        Je m'inscris !
-      </ion-button><br />
+        Je m'inscris ! </ion-button><br />
       <ion-modal trigger="open-modal" (willDismiss)="onWillDismiss($event)">
         <ng-template>
           <ion-header>
@@ -51,28 +53,29 @@
               </ion-buttons>
               <ion-title>Inscription</ion-title>
               <ion-buttons slot="end">
-                <ion-button (click)="confirm()" [strong]="true">Confirmer</ion-button>
+                <ion-button [strong]="true"
+                  (click)="onSubmit()"
+                  [disabled]="ionicForm.invalid || ionicForm.pristine"
+                  >Confirmer</ion-button>
               </ion-buttons>
             </ion-toolbar>
           </ion-header>
           <ion-content class="ion-padding">
-            <ion-input label="Default counter" labelPlacement="floating" [counter]="true" maxlength="20"></ion-input>
-
-<ion-input
-  id="custom-input"
-  label="Custom Counter Format"
-  labelPlacement="floating"
-  [counter]="true"
-  maxlength="20"
-></ion-input></ion-input>
-            <ion-item>
-              <ion-label position="stacked">Enter your name</ion-label>
-              <ion-input type="text" placeholder="Your name" [counter]="true"
-              [maxlength]="20"[(ngModel)]="nom"></ion-input>
-            </ion-item>
+            <form [formGroup]="ionicForm">
+              <ion-input type="email" formControlName="email" fill="solid" label="Email" labelPlacement="floating"
+                helperText="Entrez un Email valide" errorText="Email invalide" required>
+              </ion-input>
+              <ion-input type="text" formControlName="nom" fill="solid" label="Nom" labelPlacement="floating"
+                helperText="Entrez votre nom" errorText="Nom invalide" [counter]="true" [maxlength]="20" required>
+              </ion-input>
+              <ion-input type="text" formControlName="prenom" fill="solid" label="Prénom" labelPlacement="floating"
+                helperText="Entrez votre prénom" errorText="Prénom invalide" [counter]="true" [maxlength]="20" required>
+              </ion-input>
+            </form>
           </ion-content>
         </ng-template>
       </ion-modal>
+      <ion-alert trigger="present-alert" header="Attention" subHeader="Erreur" message="{{alertmsg}}" [buttons]="alertButtons" [isOpen]="showAlert"></ion-alert>
       <ion-button (click)="addFav(atelier)" [color]="isFav ? 'danger' : 'primary'" expand="full" fill="clear">
         {{isFav ? 'Retirer des favorisㅤ' : 'Ajouter aux favorisㅤ'}}
         <ion-icon name="star"></ion-icon>
