@@ -28,9 +28,17 @@ export class DetailAtelierPage implements OnInit {
   hack: any;
   ionicForm!: FormGroup;
   submitted = false;
-  alertmsg:any;
+  alertmsg: any;
   showAlert = false;
-  alertButtons = [ { text: 'OK', handler: () => { this.showAlert = false; } } ];
+  showToast = false;
+  alertButtons = [
+    {
+      text: 'OK',
+      handler: () => {
+        this.showAlert = false;
+      },
+    },
+  ];
   constructor(
     private router: Router,
     private http: HttpClient,
@@ -155,28 +163,40 @@ export class DetailAtelierPage implements OnInit {
     this.submitted = true;
     if (!this.ionicForm.valid) {
       console.log('Veuillez bien remplir tous les champs');
-      this.alertmsg="Veuillez bien remplir tous les champs :)";
+      this.alertmsg = 'Veuillez bien remplir tous les champs :)';
       this.showAlert = true;
       return false;
     } else {
       console.log(this.ionicForm.value);
       //on va faire une requete post json vers /api/inscription/atelier
       this.http
-        .post('http://'+ window.location.hostname+':8001/api/inscription/atelier', {
-          "nom": this.ionicForm.value.nom,
-          "prenom": this.ionicForm.value.prenom,
-          "email": this.ionicForm.value.email,
-          "atelier": this.atelier.id,
-        })
-        //en fonction du code de la réponse on affiche l'error en json retournée par l'api, ou la réussite
-        .subscribe(
-          (response) => {
-            console.log(response);
-          }),
-          console.log(this.http)
-
-      this.modal.dismiss(this.nom, 'confirm');
-      return;
+  .post(
+    'http://' +
+      window.location.hostname +
+      ':8001/api/inscription/atelier',
+    {nom: this.ionicForm.value.nom,prenom: this.ionicForm.value.prenom,email: this.ionicForm.value.email,atelier: this.atelier.id}
+  )
+  //en fonction du code de la réponse on affiche l'error en json retournée par l'api, ou la réussite
+  .subscribe({
+    next: (response) => {
+      console.log(response);
+    },
+    //si on recoit un code 200 on affiche le toast et ferme le modal
+    complete: () => {
+      this.showAlert = false;
+      this.modal.dismiss();
+      this.showToast = true;
+    },
+    error: (error) => {
+      if (error.status == 400 || error.status == 404 || error.status == 500 || error.status == 403) {
+        console.log(error);
+        this.alertmsg = error.error.error;
+        this.showAlert = true;
+        this.showToast = false;
+      }
     }
+  });
+    return;
+  }
   }
 }

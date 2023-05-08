@@ -38,7 +38,7 @@
       <ion-item color="light" detail="true" class="rounded" lines="none">
         <ion-icon name="person" slot="start"></ion-icon>
         <ion-label>
-          {{atelier.nbParticipants}} / {{atelier.nbPlaces}}
+          {{atelier.nbInscrits}} / {{atelier.nbPlaces}}
           <p>Places occupées</p>
         </ion-label>
       </ion-item>
@@ -76,10 +76,14 @@
         </ng-template>
       </ion-modal>
       <ion-alert trigger="present-alert" header="Attention" subHeader="Erreur" message="{{alertmsg}}" [buttons]="alertButtons" [isOpen]="showAlert"></ion-alert>
+      <ion-toast trigger="present-toast" message="Vous êtes inscrits !" [duration]="3000" icon="checkmark-circle-outline" [isOpen]="showToast"></ion-toast>
       <ion-button (click)="addFav(atelier)" [color]="isFav ? 'danger' : 'primary'" expand="full" fill="clear">
         {{isFav ? 'Retirer des favorisㅤ' : 'Ajouter aux favorisㅤ'}}
         <ion-icon name="star"></ion-icon>
       </ion-button>
     </ion-card-content>
   </ion-card>
+  <ion-button *ngIf="showToast" routerLink="/home" expand="full" fill="solid" color="tertiary">
+    Retour à l'accueil
+  </ion-button>
 </ion-content>
