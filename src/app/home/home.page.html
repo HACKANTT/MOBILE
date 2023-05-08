@@ -15,11 +15,13 @@
       <ion-title size="large">Nos Hackathons</ion-title>
     </ion-toolbar>
   </ion-header>
+  <!-- Ajout d'une barre de recherche -->
+  <ion-searchbar [(ngModel)]="searchVille" placeholder="Rechercher par ville..."></ion-searchbar>
   <ion-item *ngIf="!lsthackathons">
     <ion-spinner name="crescent" color="primary" class="spinner-center"></ion-spinner>
     <ion-label> Chargement...</ion-label>
   </ion-item>
-  <ion-item *ngFor="let hack of lsthackathons" (click)="affDetailHack(hack)">
+  <ion-item *ngFor="let hack of lsthackathons | filter:searchVille:'ville'" (click)="affDetailHack(hack)">
     <ion-thumbnail slot="start">
       <img src="{{hack.image}}" />
     </ion-thumbnail>
