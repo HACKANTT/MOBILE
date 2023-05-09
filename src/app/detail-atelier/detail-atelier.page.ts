@@ -183,6 +183,8 @@ export class DetailAtelierPage implements OnInit {
     },
     //si on recoit un code 200 on affiche le toast et ferme le modal
     complete: () => {
+      //on modifie la valeur de {{atelier.nbInscrits}} à +1
+      this.atelier.nbInscrits = this.atelier.nbInscrits + 1;
       this.showAlert = false;
       this.modal.dismiss();
       this.showToast = true;

@@ -20,7 +20,9 @@
 
 <ion-content fullscreen="true">
   <ion-card>
-    <img alt="Image du Hackathon" src="{{hack.image}}" />
+    <img alt="Image du Hackathon" src="{{hack.image}}" style="width: 100%;
+    max-height: 400px;
+    object-fit: cover;"/>
     <ion-chip class="absolute" [color]="hack.isFav ? 'primary' : 'white'" (click)="addFav(hack)">
       <ion-icon name="star"></ion-icon>
       <ion-label>
