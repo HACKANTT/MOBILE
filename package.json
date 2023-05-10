@@ -66,5 +66,5 @@
     "ts-node": "~8.3.0",
     "typescript": "~4.8.4"
   },
-  "description": "An Ionic project"
+  "description": "An Ionic Hackathons PWApp (School Project)"
 }
