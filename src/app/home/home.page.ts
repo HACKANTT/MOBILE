@@ -13,14 +13,14 @@ export class HomePage {
   lsthackathons:any;
   searchVille: string = '';
   constructor(private http : HttpClient, private router: Router) {
-    this.http.get('http://'+ window.location.hostname+':8001/api/hackathons').subscribe(results => {
+    this.http.get('http://s.sc2ftxr9548.universe.wf/api/hackathons').subscribe(results => {
       this.lsthackathons=results;
     });
   }
 
   handleRefresh(event:any) {
     console.log('Begin async operation');
-    this.http.get('http://'+ window.location.hostname+':8001/api/hackathons').subscribe(results => {
+    this.http.get('http://s.sc2ftxr9548.universe.wf/api/hackathons').subscribe(results => {
       this.lsthackathons=results;
       event.target.complete();
     });

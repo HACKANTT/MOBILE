@@ -24,7 +24,7 @@ export class DetailHackPage implements OnInit {
       this.router.navigate(['/home']);
     };
     //on récupère les evenemnts liés au hackathon sur lequel on clique
-    this.http.get('http://'+ window.location.hostname+':8001/api/evenements/hackathon/'+this.hack.id).subscribe(
+    this.http.get('http://s.sc2ftxr9548.universe.wf/api/evenements/hackathon/'+this.hack.id).subscribe(
       data => {this.lstevenements = data;console.log(this.lstevenements);})
   })}
 
