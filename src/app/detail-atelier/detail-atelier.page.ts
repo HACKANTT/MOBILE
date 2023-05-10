@@ -171,9 +171,7 @@ export class DetailAtelierPage implements OnInit {
       //on va faire une requete post json vers /api/inscription/atelier
       this.http
   .post(
-    'http://' +
-      window.location.hostname +
-      ':8001/api/inscription/atelier',
+    'https://app.hackantt.me/api/inscription/atelier',
     {nom: this.ionicForm.value.nom,prenom: this.ionicForm.value.prenom,email: this.ionicForm.value.email,atelier: this.atelier.id}
   )
   //en fonction du code de la réponse on affiche l'error en json retournée par l'api, ou la réussite
